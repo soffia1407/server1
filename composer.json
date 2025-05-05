@@ -1,0 +1,16 @@
+{
+    "name": "soffia1407/server1",
+    "description": "Educational practice. server-side programming",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "soffia1407",
+            "email": "sff140705@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^7.4 | ^8.0"
+    }
+}
