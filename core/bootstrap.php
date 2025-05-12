@@ -4,7 +4,7 @@ const DIR_CONFIG = '/../config';
 
 //Подключение автозагрузчика composer
 //изменен путь на абсолютный(т.к у меня autoload.php находится в другой папке)
-require_once dirname(__DIR__, 2) . '/vendor/autoload.php'; 
+require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 //Функция, возвращающая массив всех настроек приложения
 function getConfigs(string $path = DIR_CONFIG): array
