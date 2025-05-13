@@ -1,15 +1,16 @@
 <?php
+
 namespace app\Controller;
 
-use Illuminate\Database\Capsule\Manager as DB;
+use app\Model\Post;
 use Src\View;
 
 class Site
 {
-   // Метод для обработки главной страницы и маршрута /go
+    // Метод для обработки главной страницы и маршрута /go
    public function index(): string
    {
-       $posts = DB::table('posts')->get();
+       $posts = Post::all();
        return (new View())->render('site.post', ['posts' => $posts]);
    }
 
