@@ -46,11 +46,11 @@ class Site
        //Если аутентификация не удалась, то сообщение об ошибке
        return new View('site.login', ['message' => 'Неправильные логин или пароль']);
     }
-    
+
     public function logout(): void
     {
        Auth::logout();
-       app()->route->redirect('/hello');
+       app()->route->redirect('/');
     }
 
 }

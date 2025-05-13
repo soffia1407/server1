@@ -1,6 +1,6 @@
 <?php
 
-namespace Middlewares;
+namespace app\Middlewares;
 
 use Src\Auth\Auth;
 use Src\Request;

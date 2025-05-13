@@ -7,6 +7,7 @@ use Illuminate\Container\Container;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Src\Auth\Auth;
+use Src\Request;
 
 class Application
 {
@@ -15,12 +16,12 @@ class Application
    private Capsule $dbManager;
    private Auth $auth;
 
-   public function __construct(Settings $settings)
-   {
+    public function __construct(Settings $settings)
+    {
        //Привязываем класс со всеми настройками приложения
        $this->settings = $settings;
        //Привязываем класс маршрутизации с установкой префикса
-       $this->route = new Route($this->settings->getRootPath());
+       $this->route = Route::single()->setPrefix($this->settings->getRootPath());
        //Создаем класс менеджера для базы данных
        $this->dbManager = new Capsule();
        //Создаем класс для аутентификации на основе настроек приложения
@@ -30,7 +31,8 @@ class Application
        $this->dbRun();
        //Инициализация класса пользователя на основе настроек приложения
        $this->auth::init(new $this->settings->app['identity']);
-   }
+    }
+
 
    public function __get($key)
    {
