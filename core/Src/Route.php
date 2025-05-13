@@ -37,14 +37,12 @@ class Route
             if (!class_exists($class)) {
                 throw new Error("Class {$class} not found");
             }
-
-            $controller = new $class();
             
-            if (!method_exists($controller, $method)) {
+            if (!method_exists($class, $method)) {
                 throw new Error("Method {$method} not found in {$class}");
             }
 
-            echo $controller->$method();
+            echo call_user_func([new $class, $method], new Request());
             
         } catch (Error $e) {
             header("HTTP/1.0 500 Internal Server Error");
