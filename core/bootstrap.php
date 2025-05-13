@@ -3,7 +3,6 @@
 const DIR_CONFIG = '/../config';
 
 //Подключение автозагрузчика composer
-//изменен путь на абсолютный(т.к у меня autoload.php находится в другой папке)
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 //Функция, возвращающая массив всех настроек приложения
@@ -22,5 +21,12 @@ function getConfigs(string $path = DIR_CONFIG): array
 //Добавляем подключение файла routes/web.php
 require_once dirname(__DIR__, 2) . '/www/routes/web.php';
 
-return new Src\Application(new Src\Settings(getConfigs()));
+$app = new Src\Application(new Src\Settings(getConfigs()));
 
+//Функция возвращает глобальный экземпляр приложения
+function app() {
+   global $app;
+   return $app;
+}
+
+return $app;
