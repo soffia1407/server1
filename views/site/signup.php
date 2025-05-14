@@ -1,18 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Регистрация нового пользователя</title>
-</head>
-<body>
-    <h2>Регистрация нового пользователя</h2>
-    <h3><?= $message ?? ''; ?></h3>
-    <form method="post">
-       <label>Имя <input type="text" name="name"></label>
-       <label>Логин <input type="text" name="login"></label>
-       <label>Пароль <input type="password" name="password"></label>
-       <button>Зарегистрироваться</button>
+<?php
+$title = 'Регистрация';
+$auth_page = true;
+$message = $message ?? '';
+?>
+<div class="auth-container">
+    <h2 class="auth-title">Регистрация</h2>
+    <?php if ($message): ?>
+        <div class="error-message"><?= $message ?></div>
+    <?php endif; ?>
+
+    <form method="post" class="auth-form">
+        <div class="form-group">
+            <input type="text" name="name" placeholder="Введите имя" class="form-input">
+        </div>
+        <div class="form-group">
+            <input type="text" name="login" placeholder="Введите логин" class="form-input">
+        </div>
+        <div class="form-group">
+            <input type="password" name="password" placeholder="Введите пароль" class="form-input">
+        </div>
+        <button type="submit" class="btn auth-btn">Зарегистрироваться</button>
+        <div class="form-footer">
+            Уже есть аккаунт? <a href="<?= app()->route->getUrl('/login') ?>" class="form-link">Войдите</a>
+        </div>
     </form>
-</body>
-</html>
+</div>

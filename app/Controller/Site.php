@@ -12,45 +12,51 @@ class Site
 {
     public function index(Request $request): string
     {
-        // Используем безопасное получение параметра через get()
-        $postId = $request->get('id'); // Вернёт null, если id нет
-        $posts = $postId ? Post::where('id', $postId)->get() : Post::all();
-        return (new View())->render('site.post', ['posts' => $posts]);
+        try {
+            $posts = Post::all(); // Всегда получаем все посты
+            return (new View())->render('site.post', ['posts' => $posts]);
+        } catch (Exception $e) {
+            // Логирование ошибки при необходимости
+            return (new View())->render('site.post', ['posts' => []]);
+        }
     }
 
-    // Метод для обработки маршрута /hello
     public function hello(): string
     {
-        return new View('site.hello', ['message' => 'hello working']);
+        return (new View())->render('site.hello', ['message' => 'hello working']);
     }
 
-    // Метод для обработки маршрута /signup
     public function signup(Request $request): string
     {
-        if ($request->method === 'POST' && User::create($request->all())) {
-            app()->route->redirect('/go'); // Редирект вместо вывода сообщения
+        $message = '';
+        
+        if ($request->method === 'POST') {
+            if (User::create($request->all())) {
+                app()->route->redirect('/go');
+            }
+            $message = 'Ошибка при регистрации';
         }
-        return new View('site.signup');
+        
+        return (new View())->render('site.signup', ['message' => $message]);
     }
 
     public function login(Request $request): string
     {
-       //Если просто обращение к странице, то отобразить форму
-       if ($request->method === 'GET') {
-           return new View('site.login');
-       }
-       //Если удалось аутентифицировать пользователя, то редирект
-       if (Auth::attempt($request->all())) {
-           app()->route->redirect('/hello');
-       }
-       //Если аутентификация не удалась, то сообщение об ошибке
-       return new View('site.login', ['message' => 'Неправильные логин или пароль']);
+        $message = '';
+        
+        if ($request->method === 'POST') {
+            if (Auth::attempt($request->all())) {
+                app()->route->redirect('/hello');
+            }
+            $message = 'Неправильные логин или пароль';
+        }
+        
+        return (new View())->render('site.login', ['message' => $message]);
     }
 
     public function logout(): void
     {
-       Auth::logout();
-       app()->route->redirect('/');
+        Auth::logout();
+        app()->route->redirect('/');
     }
-
 }
