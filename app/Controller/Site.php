@@ -42,13 +42,18 @@ class Site
 
     public function login(Request $request): string
     {
-        $message = '';
+        $message = ''; // Сохраняем переменную для сообщения об ошибке
         
         if ($request->method === 'POST') {
             if (Auth::attempt($request->all())) {
-                app()->route->redirect('/hello');
+                // Редирект в зависимости от роли
+                if (Auth::user()->role === 'admin') {
+                    app()->route->redirect('/admin/employees');
+                } else {
+                    app()->route->redirect('/hello');
+                }
             }
-            $message = 'Неправильные логин или пароль';
+            $message = 'Неправильные логин или пароль'; // Сообщение об ошибке
         }
         
         return (new View())->render('site.login', ['message' => $message]);

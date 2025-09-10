@@ -10,7 +10,7 @@ class AuthMiddleware
    public function handle(Request $request)
    {
        //Если пользователь не авторизован, то редирект на страницу входа
-       if (!Auth::check()) {
+       if (!Auth::check() || Auth::user()->role !== 'admin') {
            app()->route->redirect('/login');
        }
    }

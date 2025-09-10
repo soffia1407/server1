@@ -1,12 +1,13 @@
 <?php
 return [
-   //Класс аутентификации
-   'auth' => \Src\Auth\Auth::class,
-   //Клас пользователя
-   'identity'=>\app\Model\User::class,
-   //Классы для middleware
-   'routeMiddleware' => [
-   'auth' => app\Middlewares\AuthMiddleware::class,
-]
-
+    //Класс аутентификации
+    'auth' => \Src\Auth\Auth::class,
+    //Класс пользователя
+    'identity' => \app\Model\User::class,
+    //Классы для middleware
+    'routeMiddleware' => [
+        'auth' => \app\Middlewares\AuthMiddleware::class,
+        'admin' => \app\Middlewares\AdminMiddleware::class,
+        'employee' => \app\Middlewares\EmployeeMiddleware::class,
+    ]
 ];

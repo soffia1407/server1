@@ -12,12 +12,19 @@
 <body>
     <header class="header">
         <nav class="main-nav">
-            <a href="<?= app()->route->getUrl('/') ?>" class="nav-link">Главная</a>
-            <?php if (!app()->auth::check()): ?>
-                <a href="<?= app()->route->getUrl('/login') ?>" class="nav-link">Вход</a>
-                <a href="<?= app()->route->getUrl('/signup') ?>" class="nav-link">Регистрация</a>
+            <?php if (app()->auth::check()): ?>                                                                   
+                <?php if (app()->auth::user()->role === 'admin'): ?>             
+                    <a href="/admin/employees" class="nav-link">Сотрудники</a>
+                    <a href="/admin/add-employee" class="nav-link">Добавить сотрудника</a>
+                <?php else: ?>                   
+                    <a href="/hello" class="nav-link">Главная</a>
+                    <a href="/deanery/students" class="nav-link">Студенты</a>
+                <?php endif; ?>
+                <a href="/logout" class="nav-link">Выход</a>
             <?php else: ?>
-                <a href="<?= app()->route->getUrl('/logout') ?>" class="nav-link">Выход (<?= app()->auth::user()->name ?>)</a>
+                <a href="/" class="nav-link">Главная</a>
+                <a href="/login" class="nav-link">Вход</a>
+                <a href="/signup" class="nav-link">Регистрация</a>
             <?php endif; ?>
         </nav>
     </header>
