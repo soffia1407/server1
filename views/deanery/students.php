@@ -49,13 +49,24 @@
             </div>
             
             <div class="form-group">
-                <label class="form-label">Группа (ID):</label>
-                <input type="number" name="study_groups_id" class="form-input" required min="1">
+                <label class="form-label">Группа:</label>
+                <select name="study_groups_id" class="form-input" required>
+                    <option value="">Выберите группу</option>
+                    <?php if (isset($studyGroups) && count($studyGroups) > 0): ?>
+                        <?php foreach ($studyGroups as $group): ?>
+                            <option value="<?= $group->id ?>">
+                                Группа #<?= $group->id ?>: <?= htmlspecialchars($group->name) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <option value="">Нет доступных групп</option>
+                    <?php endif; ?>
+                </select>
                 <?php if (isset($studyGroups) && count($studyGroups) > 0): ?>
-                    <small class="group-hint">Доступные группы: 
-                    <?php foreach ($studyGroups as $group): ?>
-                        #<?= $group->id ?> <?= $group->name ?>, 
-                    <?php endforeach; ?>
+                    <small class="group-hint">Выберите существующую группу из списка</small>
+                <?php else: ?>
+                    <small class="group-hint" style="color: red;">
+                        Внимание: нет доступных групп! Сначала создайте группы в БД.
                     </small>
                 <?php endif; ?>
             </div>
