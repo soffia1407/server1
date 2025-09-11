@@ -9,5 +9,10 @@ return [
         'auth' => \app\Middlewares\AuthMiddleware::class,
         'admin' => \app\Middlewares\AdminMiddleware::class,
         'employee' => \app\Middlewares\EmployeeMiddleware::class,
-    ]
+    ],
+    'validators' => [
+       'required' => \Validators\RequireValidator::class,
+       'unique' => \Validators\UniqueValidator::class
+   ]
+
 ];
