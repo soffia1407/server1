@@ -29,6 +29,6 @@ class Discipline extends Model
     // Связь: дисциплина может принадлежать многим группам (если нужно)
     public function groups()
     {
-        return $this->belongsToMany(Group::class, 'discipline_group', 'discipline_id', 'group_id');
+       return $this->belongsToMany(Group::class, 'group_disciplines', 'discipline_id', 'group_id');
     }
 }

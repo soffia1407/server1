@@ -19,6 +19,10 @@
                 <?php else: ?>                   
                     <a href="/hello" class="nav-link">Главная</a>
                     <a href="/deanery/students" class="nav-link">Студенты</a>
+                    <a href="/deanery/disciplines" class="nav-link">Дисциплины</a>
+                    <a href="/deanery/performance" class="nav-link">Добавить оценку</a>
+                    <a href="/deanery/group-disciplines" class="nav-link">Прикрепить дисциплины</a>
+                    <a href="/deanery/group-performance" class="nav-link">Успеваемость</a>
                 <?php endif; ?>
                 <a href="/logout" class="nav-link">Выход</a>
             <?php else: ?>

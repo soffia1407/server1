@@ -22,6 +22,6 @@ class Group extends Model
 
     public function disciplines()
     {
-       return $this->belongsToMany(Discipline::class, 'discipline_group', 'group_id', 'discipline_id');
+       return $this->belongsToMany(Discipline::class, 'group_disciplines', 'group_id', 'discipline_id');
     }
 }

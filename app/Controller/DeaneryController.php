@@ -50,12 +50,12 @@ class DeaneryController
         ]);
     }
 
-    public function studentPerformance(Request $request, $id): string
+    public function studentPerformance($id, Request $request): string
     {
         $student = Student::with(['studyGroup', 'performances.discipline'])
                         ->where('id', $id)
                         ->first();
-        
+
         return (new View())->render('deanery.performance', [
             'student' => $student
         ]);
@@ -117,25 +117,25 @@ class DeaneryController
 
     public function attachDisciplineToGroup(Request $request): string
     {
-        $groups = Group::all();
-        $disciplines = Discipline::all();
-        
-        if ($request->method === 'POST') {
-            try {
-                $group = Group::find($request->group_id);
-                $group->disciplines()->attach($request->discipline_id);
-                
-                return app()->route->redirect('/deanery/group-disciplines');
-            } catch (\Exception $e) {
-                $error = 'Ошибка: ' . $e->getMessage();
-            }
-        }
-        
-        return (new View())->render('deanery.attach_discipline', [
-            'groups' => $groups,
-            'disciplines' => $disciplines,
-            'error' => $error ?? null
-        ]);
+       $groups = Group::all();
+       $disciplines = Discipline::all();
+       
+       if ($request->method === 'POST') {
+           try {
+               $group = Group::find($request->group_id);
+               $group->disciplines()->attach($request->discipline_id);
+               
+               return app()->route->redirect('/deanery/group-disciplines');
+           } catch (\Exception $e) {
+               $error = 'Ошибка: ' . $e->getMessage();
+           }
+       }
+       
+       return (new View())->render('deanery.attach_discipline', [
+           'groups' => $groups,
+           'disciplines' => $disciplines,
+           'error' => $error ?? null
+       ]);
     }
 
     public function groupPerformance(Request $request): string
