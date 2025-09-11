@@ -9,6 +9,10 @@ $title = 'Добавление сотрудника';
     
     <form method="post" class="employee-form">
         <div class="form-group">
+            <label>Имя:</label>
+            <input type="text" name="name" required>
+        </div>
+        <div class="form-group">
             <label>Логин:</label>
             <input type="text" name="login" required>
         </div>
